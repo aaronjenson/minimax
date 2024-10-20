@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Self, override
 
 from minimax.base import MinimaxBase
+from minimax.utils import uniform_transition
 
 
 @dataclass
@@ -19,6 +20,9 @@ class TicTacToe(MinimaxBase):
         return ['x', 'o']
 
     def turn(self) -> int:
+        """
+        helper to determine the turn number
+        """
         return len(self.board.replace(' ', ''))
 
     @override
@@ -31,11 +35,11 @@ class TicTacToe(MinimaxBase):
 
     @override
     def transition(self, action: int) -> list[(Self, float)]:
-        return [(TicTacToe(
-            self.board[:action] +
-            self.whose_turn() +
-            self.board[action + 1:]),
-            1)]
+        return uniform_transition(
+            TicTacToe(
+                self.board[:action] +
+                self.whose_turn() +
+                self.board[action + 1:]))
 
     def get_chains(self) -> list[str]:
         """
