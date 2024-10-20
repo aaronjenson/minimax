@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from collections.abc import Hashable
+import random
 from typing import Self
 
 
@@ -153,3 +154,7 @@ class MinimaxBase(ABC):
             evals.append((expected, action))
 
         return max(evals, key=lambda e: e[0][self.whose_turn()])
+
+    def move(self, action: any) -> Self:
+        states, weights = zip(*self.transition(action))
+        return random.choices(states, weights=weights)[0]

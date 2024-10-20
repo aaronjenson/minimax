@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Self, override
 
 from minimax.base import MinimaxBase
-from minimax.utils import uniform_transition
+from minimax.utils import uniform_transition, simulate_game
 
 
 @dataclass
@@ -81,3 +81,7 @@ class TicTacToe(MinimaxBase):
     def __str__(self) -> str:
         return ('\n' + '-' * (3 * 2 - 1) + '\n').join(
             ['|'.join(self.board[i:i+3]) for i in range(0, 8, 3)])
+
+
+if __name__ == '__main__':
+    simulate_game(TicTacToe())
